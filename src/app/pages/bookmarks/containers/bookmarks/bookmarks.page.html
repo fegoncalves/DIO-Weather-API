@@ -1,0 +1,29 @@
+<div class="container-fluid">
+  <div class="bookmarks-container">
+
+    <div>
+      <h3>Favorites</h3>
+
+      <div *ngIf="!(bookmarks$ | async).length">No favorite city added yet</div>
+
+      <ul class="list-unstyled">
+        <li *ngFor="let bookmark of bookmarks$ | async">
+          <a [routerLink]="['../details']"
+             [queryParams]="{lat: bookmark.coord.lat, lon: bookmark.coord.lon}">
+            {{ bookmark.name }}
+          </a>
+          <button class="btn btn-outline-danger btn-sm pull-right" style="float: right;"
+                  (click)="removeBookmark(bookmark.id)"><img src="../../../../../assets/trash.svg" /></button>
+          <br><br>
+        </li>
+      </ul>
+
+    </div>
+
+    <div>
+      <label>Add city to favorites</label>
+      <dio-cities-typeahead [formControl]="searchTypeaheadControl"></dio-cities-typeahead>
+    </div>
+
+  </div>
+</div>
